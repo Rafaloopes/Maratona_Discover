@@ -9,38 +9,46 @@ const Modal = {
   }
 }
 
-const transactions = [
-    {
-        id: 1,
-        description: 'luz',
-        amount: -50000,
-        date: '23/01/2021',
-    },
-    {
-        id: 2,
-        description: 'website',
-        amount: 500000,
-        date: '23/01/2021',
-    },
-    {
-        id: 3,
-        description: 'internet',
-        amount: -20000,
-        date: '23/01/2021',
-    },
-    {
-        id: 4,
-        description: 'App',
-        amount: 200000,
-        date: '23/01/2021',
-    },  
-]
-
 
 const Transaction = {
-    all:transactions,
+    all: [
+        {
+            
+            description: 'luz',
+            amount: -50000,
+            date: '23/01/2021',
+        },
+        {
+            
+            description: 'website',
+            amount: 500000,
+            date: '23/01/2021',
+        },
+        {
+            
+            description: 'internet',
+            amount: -20000,
+            date: '23/01/2021',
+        },
+        {
+            
+            description: 'App',
+            amount: 200000,
+            date: '23/01/2021',
+        },  
+    ],
+
     add(transaction){
         Transaction.all.push(transaction)
+
+        App.reload()
+    },
+
+    remove(index) {
+        Transaction.all.splice(index, 1)
+
+        App.reload()
+        
     },
 
     incomes() {
@@ -114,6 +122,10 @@ const DOM = {
         document.getElementById('totalDisplay').innerHTML = Utils.formatCurrency(Transaction.total())
 
     },
+
+    clearTransactions() {
+        DOM.transactionsContainer.innerHTML = ""
+    },
     
 }
 const Utils = {
@@ -134,6 +146,31 @@ const Utils = {
     }
 }
 
+const Form = {
+    formatData(){
+        console.log('formatar os dados')
+    },
+    validateFileds() {
+        console.log('validar os campos')
+    },
+
+    submit(event) {
+        
+        event.preventDefault()
+
+        
+
+        //verificar se o formulario foi preenchido
+        Form.validateFileds()
+        //formatar os dados para salvar
+        Form.formatData()
+        //salvar
+        //apagar os dados do formulario 
+        //fechar modal
+        //atualizar a aplicação
+        
+    }
+}
 
 const App = {
     init(){
@@ -147,6 +184,7 @@ const App = {
     },
 
     reload(){
+        DOM.clearTransactions()
         App.init()
     },
 
